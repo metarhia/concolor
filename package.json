@@ -1,0 +1,32 @@
+{
+  "name": "concolor",
+  "version": "0.0.1",
+  "author": "Vladyslav Dukhin <vladyslav.dukhin@gmail.com>",
+  "description": "Console colors for strings templates in node.js",
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "colors",
+    "colour",
+    "console",
+    "terminal",
+    "ansi",
+    "esc"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metarhia/concolor"
+  },
+  "bugs": {
+    "url": "https://github.com/metarhia/concolor/issues",
+    "email": "vladyslav.dukhin@gmail.com"
+  },
+  "main": "./concolor.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "node ./test.js"
+  }
+}
