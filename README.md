@@ -3,11 +3,14 @@ Concolor is a simple library for Node.js for coloring templated strings using ta
 
 ## Usage
 - Place tag `color` before templated string to apply coloring on that string
+
   ```javascript
   console.log(color`Hello ${'World'}(black/green) black on green`);
   ```
+  
 - Use anotations in brackets after templated string to add bold or underlined style to string or
   to change foreground or background color of a templated string
+  
   ```javascript
   console.log(color`Hello ${'World'}(blue) blue`);
   console.log(color`Hello ${'World'}(/red) on red`);
