@@ -1,83 +1,35 @@
 'use strict';
 
-let color = (strings, ...values) => {
+const colors = [
+  'BLACK', 'RED', 'GREEN', 'YELLOW', 'BLUE', 'MAGENTA', 'CYAN', 'WHITE'
+];
+
+const color = (strings, ...values) => {
   const regex = /:([a-z]+)(\(([^())]+)\))?/g;
-  let result = [strings[0]];
+  const result = [strings[0]];
 
   values.forEach((value, i) => {
     let resultValue = value;
 
-    let reMatch;
+    let reMatch, style;
     while ((reMatch = regex.exec(strings[i + 1])) !== null) {
-      if (reMatch[1] === 'b') { // bold
+      style = reMatch[1];
+      if (style === 'b') { // bold
         resultValue = '\x1b[1m' + resultValue + '\x1b[0m';
-      }
-      if (reMatch[1] === 'u') { // underlined
+      } else if (style === 'u') { // underlined
         resultValue = '\x1b[4m' + resultValue + '\x1b[0m';
-      }
-      if (reMatch[1] === 'fg') { // foreground
-        switch (reMatch[3]) {
-          case 'BLACK':
-            resultValue = '\x1b[30m' + resultValue;
-            break;
-          case 'RED':
-            resultValue = '\x1b[31m' + resultValue;
-            break;
-          case 'GREEN':
-            resultValue = '\x1b[32m' + resultValue;
-            break;
-          case 'YELLOW':
-            resultValue = '\x1b[33m' + resultValue;
-            break;
-          case 'BLUE':
-            resultValue = '\x1b[34m' + resultValue;
-            break;
-          case 'MAGENTA':
-            resultValue = '\x1b[35m' + resultValue;
-            break;
-          case 'CYAN':
-            resultValue = '\x1b[36m' + resultValue;
-            break;
-          case 'WHITE':
-            resultValue = '\x1b[37m' + resultValue;
-            break;
-        }
-        resultValue += '\x1b[0m';
-      }
-      if (reMatch[1] === 'bg') { // background
-        switch (reMatch[3]) {
-          case 'BLACK':
-            resultValue = '\x1b[40m' + resultValue;
-            break;
-          case 'RED':
-            resultValue = '\x1b[41m' + resultValue;
-            break;
-          case 'GREEN':
-            resultValue = '\x1b[42m' + resultValue;
-            break;
-          case 'YELLOW':
-            resultValue = '\x1b[43m' + resultValue;
-            break;
-          case 'BLUE':
-            resultValue = '\x1b[44m' + resultValue;
-            break;
-          case 'MAGENTA':
-            resultValue = '\x1b[45m' + resultValue;
-            break;
-          case 'CYAN':
-            resultValue = '\x1b[46m' + resultValue;
-            break;
-          case 'WHITE':
-            resultValue = '\x1b[47m' + resultValue;
-            break;
-        }
-        resultValue += '\x1b[0m';
+      } else if (style === 'fg') { // foreground
+        const fgIndex = colors.indexOf(reMatch[3]);
+        resultValue = '\x1b[3' + fgIndex + 'm' + resultValue + '\x1b[0m';
+      } else if (style === 'bg') { // background
+        const bgIndex = colors.indexOf(reMatch[3]);
+        resultValue = '\x1b[4' + bgIndex + 'm' + resultValue + '\x1b[0m';
       }
     }
     result.push(resultValue, strings[i + 1].replace(regex, ''));
   });
 
   return result.join('');
-}
+};
 
-console.log(color`Client on ${`192.168.1.1`}:fg(BLACK):bg(GREEN) connected to ${'SERVER'}:b:fg(RED) at ${new Date().toUTCString()}:b:fg(BLUE)`);
+console.log(color`Client on ${'192.168.1.1'}:fg(BLACK):bg(GREEN) connected to ${'SERVER'}:b:fg(RED) at ${new Date().toUTCString()}:b:fg(BLUE)`);
