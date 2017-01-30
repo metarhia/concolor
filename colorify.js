@@ -8,25 +8,20 @@ const color = (strings, ...values) => {
   const regex = /:([a-z]+)(\(([^())]+)\))?/g;
   const result = [strings[0]];
 
-  values.forEach((value, i) => {
-    let resultValue = value;
-
-    let reMatch, style;
-    while ((reMatch = regex.exec(strings[i + 1])) !== null) {
+  let reMatch, style, color, index, esc, str;
+  values.forEach((val, i) => {
+    str = strings[i + 1];
+    while ((reMatch = regex.exec(str)) !== null) {
       style = reMatch[1];
-      if (style === 'b') { // bold
-        resultValue = '\x1b[1m' + resultValue + '\x1b[0m';
-      } else if (style === 'u') { // underlined
-        resultValue = '\x1b[4m' + resultValue + '\x1b[0m';
-      } else if (style === 'fg') { // foreground
-        const fgIndex = colors.indexOf(reMatch[3]);
-        resultValue = '\x1b[3' + fgIndex + 'm' + resultValue + '\x1b[0m';
-      } else if (style === 'bg') { // background
-        const bgIndex = colors.indexOf(reMatch[3]);
-        resultValue = '\x1b[4' + bgIndex + 'm' + resultValue + '\x1b[0m';
-      }
+      color = reMatch[3];
+      index = colors.indexOf(color);
+      if (style === 'b') esc = '1m';
+      else if (style === 'u') esc = '4m';
+      else if (style === 'fg') esc = '3' + index + 'm';
+      else if (style === 'bg') esc = '4' + index + 'm';
+      val = '\x1b[' + esc + val + '\x1b[0m';
     }
-    result.push(resultValue, strings[i + 1].replace(regex, ''));
+    result.push(val, str.replace(regex, ''));
   });
 
   return result.join('');
