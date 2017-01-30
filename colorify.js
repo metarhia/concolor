@@ -80,4 +80,4 @@ let color = (strings, ...values) => {
   return result.join('');
 }
 
-console.log(format`Client on ${`192.168.1.1`}:fg(BLACK):bg(GREEN) connected to ${'SERVER'}:b:fg(RED) at ${new Date().toUTCString()}:b:fg(BLUE)`);
+console.log(color`Client on ${`192.168.1.1`}:fg(BLACK):bg(GREEN) connected to ${'SERVER'}:b:fg(RED) at ${new Date().toUTCString()}:b:fg(BLUE)`);
