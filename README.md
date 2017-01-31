@@ -6,7 +6,7 @@ tags with annotations
 ## Usage
 
 - Install: `npm install concolor`
-- Require: `const color = require('./concolor.js').color;`
+- Require: `const color = require('concolor').color;`
 - Place tag `color` before templated string to apply coloring on that string,
 example:
 ```javascript
