@@ -12,16 +12,6 @@ console.log(concolor`Hello ${'World'}(b,u,yellow) bold underline yellow`);
 console.log(concolor`Hello ${'World'}(blue,u) blue underline`);
 console.log(concolor`Hello ${'World'}(b,black/green) bold black on green`);
 
-/* 1 */ 'b', // bold (increased intensity)
-/* 2 */ 'f', // faint (decreased intensity)
-/* 3 */ 'i', // italic
-/* 4 */ 'u', // underline
-/* 5 */ 'l', // blink slow
-/* 6 */ 'h', // blink rapid
-/* 7 */ 'n', // negative
-/* 8 */ 'c', // conceal
-/* 9 */ 's'  // strikethrough
-
 console.log(concolor`
   ${'b for bold'}(b),
   ${'f for faint'}(f),
