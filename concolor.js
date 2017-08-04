@@ -1,9 +1,7 @@
 'use strict';
 
-const concolor = {};
-module.exports = concolor;
+module.exports = (strings, ...values) => {
 
-concolor.color = (strings, ...values) => {
   const colors = [
     /* 1 */ 'black',
     /* 2 */ 'red',
@@ -14,6 +12,7 @@ concolor.color = (strings, ...values) => {
     /* 7 */ 'cyan',
     /* 8 */ 'white'
   ];
+
   const ansi = [
     /* 1 */ 'b', // bold (increased intensity)
     /* 2 */ 'f', // faint (decreased intensity)
