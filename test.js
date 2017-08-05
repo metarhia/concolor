@@ -52,4 +52,26 @@ console.log('  ' + warn(`test1 ${'text2'} text3`));
 console.log('  ' + err(`test4 ${'text5'} text6`));
 console.log('  ' + inf(`test7 ${'text8'} text9`));
 
+console.log('\nShorthand:\n');
+
+console.log('  ' + concolor.b('concolor.b'));
+console.log('  ' + concolor.i('concolor.i'));
+console.log('  ' + concolor.u('concolor.u'));
+
+console.log('  ' + concolor.em('concolor.em'));
+
+console.log('  ' + concolor.error('concolor.error'));
+console.log('  ' + concolor.info('concolor.info'));
+console.log('  ' + concolor.warn('concolor.warn'));
+console.log('  ' + concolor.debug('concolor.debug'));
+
+console.log('  ' + concolor.success('concolor.success'));
+console.log('  ' + concolor.fail('concolor.fail'));
+
+console.log('  ' + concolor.red('concolor.red'));
+console.log('  ' + concolor.green('concolor.green'));
+console.log('  ' + concolor.yellow('concolor.yellow'));
+console.log('  ' + concolor.blue('concolor.blue'));
+console.log('  ' + concolor.white('concolor.white'));
+
 console.log('\nPassed\n');

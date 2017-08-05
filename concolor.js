@@ -74,7 +74,7 @@ const tag = (
   return stylize(styles, result.join(''));
 };
 
-module.exports = (
+const concolor = (
   strings, // Array of String or String
   ...values // Array of String
 ) => {
@@ -98,3 +98,27 @@ module.exports = (
 
   return result.join('');
 };
+
+concolor.b = concolor('b');
+concolor.i = concolor('i');
+concolor.u = concolor('u');
+
+concolor.em = concolor('b');
+
+concolor.error = concolor('b,red');
+concolor.info = concolor('b,green');
+concolor.warn = concolor('b,yellow');
+concolor.debug = concolor('b,blue');
+
+concolor.success = concolor.info;
+concolor.fail = concolor.error;
+
+concolor.red = concolor('red');
+concolor.green = concolor('green');
+concolor.yellow = concolor('yellow');
+concolor.blue = concolor('blue');
+concolor.magenta = concolor('magenta');
+concolor.cyan = concolor('cyan');
+concolor.white = concolor('white');
+
+module.exports = concolor;
