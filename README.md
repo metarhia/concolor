@@ -45,6 +45,18 @@ console.log(concolor`
 `);
 ```
 
+## Create semantic template tags
+
+```javascript
+const warn = concolor('b,yellow');
+const err = concolor('b,yellow/red');
+const inf = concolor('i,white');
+
+console.log(warn`test1 ${'text2'} text3`);
+console.log(err`test4 ${'text5'} text6`);
+console.log(inf`test7 ${'text8'} text9`);
+```
+
 ## Contributors
 
 Copyright (c) 2017 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
