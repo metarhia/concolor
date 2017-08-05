@@ -46,4 +46,10 @@ console.log('  ' + warn`test1 ${'text2'} text3`);
 console.log('  ' + err`test4 ${'text5'} text6`);
 console.log('  ' + inf`test7 ${'text8'} text9`);
 
+console.log('\nUse tag as a funtion:\n');
+
+console.log('  ' + warn(`test1 ${'text2'} text3`));
+console.log('  ' + err(`test4 ${'text5'} text6`));
+console.log('  ' + inf(`test7 ${'text8'} text9`));
+
 console.log('\nPassed\n');

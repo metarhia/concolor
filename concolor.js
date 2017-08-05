@@ -57,9 +57,13 @@ const tag = (
   // Create tag function
   styles // String, wrap tag into styles
 ) => (
-  strings, // Array of String
+  strings, // Array of String or String
   ...values // Array of String
 ) => {
+  if (typeof(strings) === 'string') {
+    return stylize(styles, strings);
+  }
+
   const result = [strings[0]];
   let val, str;
   let i = 1;
@@ -70,7 +74,10 @@ const tag = (
   return stylize(styles, result.join(''));
 };
 
-module.exports = (strings, ...values) => {
+module.exports = (
+  strings, // Array of String or String
+  ...values // Array of String
+) => {
   if (typeof(strings) === 'string') {
     return tag(strings);
   }
