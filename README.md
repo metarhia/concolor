@@ -1,4 +1,11 @@
-## Concolor
+# Concolor
+
+[![TravisCI](https://travis-ci.org/metarhia/concolor.svg?branch=master)](https://travis-ci.org/metarhia/concolor)
+[![bitHound](https://www.bithound.io/github/metarhia/concolor/badges/score.svg)](https://www.bithound.io/github/metarhia/concolor)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6f4f133090d64f178d099f86521ec117)](https://www.codacy.com/app/metarhia/concolor)
+[![NPM Version](https://badge.fury.io/js/concolor.svg)](https://badge.fury.io/js/concolor)
+[![NPM Downloads/Month](https://img.shields.io/npm/dm/concolor.svg)](https://www.npmjs.com/package/concolor)
+[![NPM Downloads](https://img.shields.io/npm/dt/concolor.svg)](https://www.npmjs.com/package/concolor)
 
 Concolor is a simple library for Node.js for coloring templated strings using
 tags with annotations
@@ -37,3 +44,7 @@ console.log(concolor`
   at ${new Date().toUTCString()}(b,blue)
 `);
 ```
+
+## Contributors
+
+Copyright (c) 2017 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
