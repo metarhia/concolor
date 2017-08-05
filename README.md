@@ -37,3 +37,15 @@ console.log(concolor`
   at ${new Date().toUTCString()}(b,blue)
 `);
 ```
+
+## Create semantic template tags
+
+```javascript
+const warn = concolor('b,yellow');
+const err = concolor('b,yellow/red');
+const inf = concolor('i,white');
+
+console.log(warn`test1 ${'text2'} text3`);
+console.log(err`test4 ${'text5'} text6`);
+console.log(inf`test7 ${'text8'} text9`);
+```
