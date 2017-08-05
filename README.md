@@ -14,18 +14,17 @@ tags with annotations
 
 - Install: `npm install concolor`
 - Require: `const concolor = require('concolor');`
-- Place tag `concolor` before templated string to apply coloring on that string,
-example:
-```javascript
-console.log(concolor`Hello ${'World'}(black/green) black on green`);
+- Now you have 3 use cases:
+  - string template tag
+  - tag factory
+  - style function
+
+## String tag
+```js
+console.log(concolor`text ${expression}(styles)`);
 ```
 
-## Examples:
-
-Use anotations in brackets after templated string to add bold or underlined
-style to string or to change foreground or background color of a templated
-string, like in examples:
-
+Examples:
 ```javascript
 console.log(concolor`Hello ${'World'}(blue) blue`);
 console.log(concolor`Hello ${'World'}(/red) on red`);
@@ -35,9 +34,7 @@ console.log(concolor`Hello ${'World'}(b,/blue) bold on blue`);
 console.log(concolor`Hello ${'World'}(b,u,yellow) bold underline yellow`);
 console.log(concolor`Hello ${'World'}(blue,u) blue underline`);
 console.log(concolor`Hello ${'World'}(b,black/green) bold black on green`);
-```
 
-```javascript
 console.log(concolor`
   Client on ${'192.168.1.1'}(black/green)
   connected to ${'SERVER'}(b,red)
@@ -45,8 +42,13 @@ console.log(concolor`
 `);
 ```
 
-## Create semantic template tags
+## Tag factory
+```js
+const tag = concolor(styles);
+console.log(tag`text`);
+```
 
+Examples:
 ```javascript
 const warn = concolor('b,yellow');
 const err = concolor('b,yellow/red');
@@ -55,6 +57,23 @@ const inf = concolor('i,white');
 console.log(warn`test1 ${'text2'} text3`);
 console.log(err`test4 ${'text5'} text6`);
 console.log(inf`test7 ${'text8'} text9`);
+```
+
+## Style function
+```js
+const style = concolor(styles);
+console.log(style('text'));
+```
+
+Examples:
+```javascript
+const warn = concolor('b,yellow');
+const err = concolor('b,yellow/red');
+const inf = concolor('i,white');
+
+console.log(warn(`test1 ${'text2'} text3`));
+console.log(err(`test4 ${'text5'} text6`));
+console.log(inf(`test7 ${'text8'} text9`));
 ```
 
 ## Contributors
