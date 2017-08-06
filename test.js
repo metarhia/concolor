@@ -74,4 +74,21 @@ console.log('  ' + concolor.yellow('concolor.yellow'));
 console.log('  ' + concolor.blue('concolor.blue'));
 console.log('  ' + concolor.white('concolor.white'));
 
+console.log('\nThemes:\n');
+
+const theme = concolor({
+  caption: 'b,white',
+  text: 'green',
+  link: 'u,yellow'
+});
+
+const caption = 'Caption';
+const text = 'Here is a text';
+const link = 'http://metarhia.com';
+
+console.log(theme`  ${{ caption }}
+  ${{ text }}
+  ${{ link }}`
+);
+
 console.log('\nPassed\n');

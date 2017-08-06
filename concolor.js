@@ -74,12 +74,44 @@ const tag = (
   return stylize(styles, result.join(''));
 };
 
+const theme = (
+  // Create theme tag
+  tags // String, theme tags
+) => {
+  const styles = {};
+  let name;
+  for (name in tags) {
+    styles[name] = tag(tags[name]);
+  }
+
+  return (
+    strings, // Array of String or String
+    ...values // Array of String
+  ) => {
+    const result = [strings[0]];
+    let val, str, name;
+    let i = 1;
+    for (val of values) {
+      str = strings[i++];
+      for (name in val) {
+        result.push(styles[name](val[name]));
+      }
+      result.push(str);
+    }
+    return result.join('');
+  };
+};
+
 const concolor = (
   strings, // Array of String or String
   ...values // Array of String
 ) => {
   if (typeof(strings) === 'string') {
     return tag(strings);
+  }
+
+  if (!Array.isArray(strings)) {
+    return theme(strings);
   }
 
   const result = [strings[0]];
