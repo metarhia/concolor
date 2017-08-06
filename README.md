@@ -14,10 +14,11 @@ tags with annotations
 
 - Install: `npm install concolor`
 - Require: `const concolor = require('concolor');`
-- Now you have 3 use cases:
-  - string template tag
-  - tag factory
-  - style function
+- Now you have 4 use cases:
+  - [string template tag](#string-tag)
+  - [tag factory](#tag-factory)
+  - [style function](#style-function)
+  - [themes](#themes)
 
 ## String tag
 ```js
@@ -74,6 +75,24 @@ const inf = concolor('i,white');
 console.log(warn(`test1 ${'text2'} text3`));
 console.log(err(`test4 ${'text5'} text6`));
 console.log(inf(`test7 ${'text8'} text9`));
+```
+
+## Themes
+```js
+const theme = concolor({
+  caption: 'b,white',
+  text: 'green',
+  link: 'u,yellow'
+});
+
+const caption = 'Caption';
+const text = 'Here is a text';
+const link = 'http://metarhia.com';
+
+console.log(theme`  ${{ caption }}
+  ${{ text }}
+  ${{ link }}`
+);
 ```
 
 ## Contributors
