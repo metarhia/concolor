@@ -91,4 +91,8 @@ console.log(theme`  ${{ caption }}
   ${{ link }}`
 );
 
+console.log('\nThemes as functions:\n');
+
+console.log('  ' + theme.caption('Caption example'));
+
 console.log('\nPassed\n');

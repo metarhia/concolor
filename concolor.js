@@ -78,13 +78,7 @@ const theme = (
   // Create theme tag
   tags // String, theme tags
 ) => {
-  const styles = {};
-  let name;
-  for (name in tags) {
-    styles[name] = tag(tags[name]);
-  }
-
-  return (
+  const styles = (
     strings, // Array of String or String
     ...values // Array of String
   ) => {
@@ -100,6 +94,12 @@ const theme = (
     }
     return result.join('');
   };
+
+  let name;
+  for (name in tags) {
+    styles[name] = tag(tags[name]);
+  }
+  return styles;
 };
 
 const concolor = (
