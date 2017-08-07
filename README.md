@@ -95,6 +95,18 @@ console.log(theme`  ${{ caption }}
 );
 ```
 
+## Themes as functions
+
+```js
+const theme = concolor({
+  caption: 'b,white',
+  text: 'green',
+  link: 'u,yellow'
+});
+
+console.log(theme.caption('Caption example'));
+```
+
 ## Contributors
 
 Copyright (c) 2017 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
