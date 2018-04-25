@@ -1,6 +1,6 @@
 {
   "name": "concolor",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Vladyslav Dukhin <vladyslav.dukhin@gmail.com>",
   "description": "Console colors for strings templates in node.js",
   "license": "MIT",
@@ -33,6 +33,6 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "^4.18.1"
+    "eslint": "^4.19.1"
   }
 }
