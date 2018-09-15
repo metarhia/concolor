@@ -30,20 +30,19 @@ const stylize = (
   styles, // String, comma separated styles
   val // String, value to stylize
 ) => {
-  let style, color, index;
   styles = styles.split(',');
-  for (style of styles) {
+  for (const style of styles) {
     if (style.length === 1) {
       const code = ansi.indexOf(style) + 1;
       val = esc(code + 'm' + val);
     } else {
-      color = style.split('/');
-      index = colors.indexOf(color[0]);
+      const color = style.split('/');
+      const index = colors.indexOf(color[0]);
       if (index > -1) {
         val = esc('3' + index + 'm' + val);
       }
       if (colors.length > 1) {
-        index = colors.indexOf(color[1]);
+        const index = colors.indexOf(color[1]);
         if (index > -1) {
           val = esc('4' + index + 'm' + val);
         }
@@ -65,10 +64,9 @@ const tag = (
   }
 
   const result = [strings[0]];
-  let val, str;
   let i = 1;
-  for (val of values) {
-    str = strings[i++];
+  for (const val of values) {
+    const str = strings[i++];
     result.push(val, str);
   }
   return stylize(styles, result.join(''));
@@ -83,20 +81,21 @@ const theme = (
     ...values // Array of String
   ) => {
     const result = [strings[0]];
-    let val, str, name;
     let i = 1;
-    for (val of values) {
-      str = strings[i++];
-      for (name in val) {
-        result.push(styles[name](val[name]));
+    for (const val of values) {
+      const str = strings[i++];
+      for (const name in val) {
+        const style = styles[name];
+        const value = val[name];
+        const res = style(value);
+        result.push(res);
       }
       result.push(str);
     }
     return result.join('');
   };
 
-  let name;
-  for (name in tags) {
+  for (const name in tags) {
     styles[name] = tag(tags[name]);
   }
   return styles;
@@ -115,16 +114,15 @@ const concolor = (
   }
 
   const result = [strings[0]];
-  let val, str, pos, styles;
   let i = 1;
-  for (val of values) {
-    str = strings[i++];
+  for (const val of values) {
+    const str = strings[i++];
     if (str.startsWith('(')) {
-      pos = str.indexOf(')');
-      styles = str.substring(1, pos);
-      val = stylize(styles, val);
-      str = str.substring(pos + 1);
-      result.push(val, str);
+      const pos = str.indexOf(')');
+      const styles = str.substring(1, pos);
+      const value = stylize(styles, val);
+      const rest = str.substring(pos + 1);
+      result.push(value, rest);
     }
   }
 
