@@ -25,11 +25,10 @@ const ANSI = [
 
 const esc = s => '\x1b[' + s + '\x1b[0m';
 
-const stylize = (
-  // Create escape sequence from concolor style definition
-  styles, // String, comma separated styles
-  val // String, value to stylize
-) => {
+// Create escape sequence from concolor style definition
+//   styles:string - comma separated styles
+//   val:string - value to stylize
+const stylize = (styles, val) => {
   styles = styles.split(',');
   for (const style of styles) {
     if (style.length === 1) {
@@ -52,13 +51,11 @@ const stylize = (
   return val;
 };
 
-const tag = (
-  // Create tag function
-  styles // String, wrap tag into styles
-) => (
-  strings, // Array of String or String
-  ...values // Array of String
-) => {
+// Create tag function
+//   styles:string - wrap tag into styles
+//   strings:array - array of string or string
+//   values:array - array of string
+const tag = styles => (strings, ...values) => {
   if (typeof strings === 'string') {
     return stylize(styles, strings);
   }
@@ -72,14 +69,10 @@ const tag = (
   return stylize(styles, result.join(''));
 };
 
-const theme = (
-  // Create theme tag
-  tags // String, theme tags
-) => {
-  const styles = (
-    strings, // Array of String or String
-    ...values // Array of String
-  ) => {
+// Create theme tag
+//   tags:string - theme tags
+const theme = tags => {
+  const styles = (strings, ...values) => {
     const result = [strings[0]];
     let i = 1;
     for (const val of values) {
@@ -101,10 +94,10 @@ const theme = (
   return styles;
 };
 
-const concolor = (
-  strings, // Array of String or String
-  ...values // Array of String
-) => {
+// Concolor main function
+//   strings:array - array of string or string
+//   values:array - array of string
+const concolor = (strings, ...values) => {
   if (typeof strings === 'string') {
     return tag(strings);
   }
