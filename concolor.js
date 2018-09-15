@@ -1,6 +1,6 @@
 'use strict';
 
-const colors = [
+const COLORS = [
   /* 1 */ 'black',
   /* 2 */ 'red',
   /* 3 */ 'green',
@@ -11,7 +11,7 @@ const colors = [
   /* 8 */ 'white'
 ];
 
-const ansi = [
+const ANSI = [
   /* 1 */ 'b', // bold (increased intensity)
   /* 2 */ 'f', // faint (decreased intensity)
   /* 3 */ 'i', // italic
@@ -33,16 +33,16 @@ const stylize = (
   styles = styles.split(',');
   for (const style of styles) {
     if (style.length === 1) {
-      const code = ansi.indexOf(style) + 1;
+      const code = ANSI.indexOf(style) + 1;
       val = esc(code + 'm' + val);
     } else {
       const color = style.split('/');
-      const index = colors.indexOf(color[0]);
+      const index = COLORS.indexOf(color[0]);
       if (index > -1) {
         val = esc('3' + index + 'm' + val);
       }
-      if (colors.length > 1) {
-        const index = colors.indexOf(color[1]);
+      if (COLORS.length > 1) {
+        const index = COLORS.indexOf(color[1]);
         if (index > -1) {
           val = esc('4' + index + 'm' + val);
         }
@@ -59,7 +59,7 @@ const tag = (
   strings, // Array of String or String
   ...values // Array of String
 ) => {
-  if (typeof(strings) === 'string') {
+  if (typeof strings === 'string') {
     return stylize(styles, strings);
   }
 
@@ -105,7 +105,7 @@ const concolor = (
   strings, // Array of String or String
   ...values // Array of String
 ) => {
-  if (typeof(strings) === 'string') {
+  if (typeof strings === 'string') {
     return tag(strings);
   }
 
