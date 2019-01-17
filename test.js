@@ -24,8 +24,7 @@ console.log(concolor`
   ${'l for blink slow'}(l),
   ${'h for blink rapid'}(h),
   ${'n for negative'}(n)
-  ${'s for strikethrough'}(s)`
-);
+  ${'s for strikethrough'}(s)`);
 
 console.log('\nComplex examples:');
 
@@ -79,7 +78,7 @@ console.log('\nThemes:\n');
 const theme = concolor({
   caption: 'b,white',
   text: 'green',
-  link: 'u,yellow'
+  link: 'u,yellow',
 });
 
 const caption = 'Caption';
@@ -88,8 +87,7 @@ const link = 'http://metarhia.com';
 
 console.log(theme`  ${{ caption }}
   ${{ text }}
-  ${{ link }}`
-);
+  ${{ link }}`);
 
 console.log('\nThemes as functions:\n');
 

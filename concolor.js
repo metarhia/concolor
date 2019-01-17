@@ -8,7 +8,7 @@ const COLORS = [
   /* 5 */ 'blue',
   /* 6 */ 'magenta',
   /* 7 */ 'cyan',
-  /* 8 */ 'white'
+  /* 8 */ 'white',
 ];
 
 const ANSI = [
@@ -20,7 +20,7 @@ const ANSI = [
   /* 6 */ 'h', // blink rapid
   /* 7 */ 'n', // negative
   /* 8 */ 'c', // conceal
-  /* 9 */ 's'  // strikethrough
+  /* 9 */ 's', // strikethrough
 ];
 
 const esc = s => '\x1b[' + s + '\x1b[0m';
