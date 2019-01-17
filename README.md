@@ -20,11 +20,13 @@ tags with annotations
   - [themes](#themes)
 
 ## String tag
+
 ```js
 console.log(concolor`text ${expression}(styles)`);
 ```
 
 Examples:
+
 ```javascript
 console.log(concolor`Hello ${'World'}(blue) blue`);
 console.log(concolor`Hello ${'World'}(/red) on red`);
@@ -43,12 +45,14 @@ console.log(concolor`
 ```
 
 ## Tag factory
+
 ```js
 const tag = concolor(styles);
 console.log(tag`text`);
 ```
 
 Examples:
+
 ```javascript
 const warn = concolor('b,yellow');
 const err = concolor('b,yellow/red');
@@ -60,12 +64,14 @@ console.log(inf`test7 ${'text8'} text9`);
 ```
 
 ## Style function
+
 ```js
 const style = concolor(styles);
 console.log(style('text'));
 ```
 
 Examples:
+
 ```javascript
 const warn = concolor('b,yellow');
 const err = concolor('b,yellow/red');
@@ -77,11 +83,12 @@ console.log(inf(`test7 ${'text8'} text9`));
 ```
 
 ## Themes
+
 ```js
 const theme = concolor({
   caption: 'b,white',
   text: 'green',
-  link: 'u,yellow'
+  link: 'u,yellow',
 });
 
 const caption = 'Caption';
@@ -90,8 +97,7 @@ const link = 'http://metarhia.com';
 
 console.log(theme`  ${{ caption }}
   ${{ text }}
-  ${{ link }}`
-);
+  ${{ link }}`);
 ```
 
 ## Themes as functions
@@ -100,7 +106,7 @@ console.log(theme`  ${{ caption }}
 const theme = concolor({
   caption: 'b,white',
   text: 'green',
-  link: 'u,yellow'
+  link: 'u,yellow',
 });
 
 console.log(theme.caption('Caption example'));
