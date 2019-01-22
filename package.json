@@ -26,8 +26,8 @@
   "main": "./concolor.js",
   "scripts": {
     "test": "npm run lint && node ./test.js",
-    "lint": "eslint . && prettier --debug-check \"**/*.js\" \"**/*.json\" \"**/*.md\" .eslintrc .prettierrc",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" .eslintrc .prettierrc --ignore-path .gitignore"
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\""
   },
   "engines": {
     "node": ">=6.0.0"
@@ -37,6 +37,6 @@
     "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "1.16.4"
+    "prettier": "1.16.x"
   }
 }
