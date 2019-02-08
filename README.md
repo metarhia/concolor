@@ -114,4 +114,4 @@ console.log(theme.caption('Caption example'));
 
 ## Contributors
 
-Copyright (c) 2017 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
+Copyright (c) 2017-2019 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
