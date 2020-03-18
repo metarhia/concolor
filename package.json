@@ -23,7 +23,8 @@
     "url": "https://github.com/metarhia/concolor/issues",
     "email": "vladyslav.dukhin@gmail.com"
   },
-  "main": "./concolor.js",
+  "main": "concolor.js",
+  "files": [],
   "scripts": {
     "test": "npm run lint && node ./test.js",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
