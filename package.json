@@ -1,6 +1,6 @@
 {
   "name": "concolor",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "author": "Vladyslav Dukhin <vladyslav.dukhin@gmail.com>",
   "description": "Console colors for strings templates in node.js",
   "license": "MIT",
@@ -13,7 +13,10 @@
     "console",
     "terminal",
     "ansi",
-    "esc"
+    "esc",
+    "template",
+    "theme",
+    "style"
   ],
   "repository": {
     "type": "git",
