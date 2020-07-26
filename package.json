@@ -26,6 +26,7 @@
     "url": "https://github.com/metarhia/concolor/issues",
     "email": "vladyslav.dukhin@gmail.com"
   },
+  "funding": "https://www.patreon.com/tshemsedinov",
   "main": "concolor.js",
   "files": [],
   "scripts": {
