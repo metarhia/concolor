@@ -26,7 +26,11 @@
     "url": "https://github.com/metarhia/concolor/issues",
     "email": "vladyslav.dukhin@gmail.com"
   },
-  "funding": "https://www.patreon.com/tshemsedinov",
+  "homepage": "https://github.com/metarhia",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/tshemsedinov"
+  },
   "main": "concolor.js",
   "files": [],
   "scripts": {
@@ -35,7 +39,7 @@
     "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\""
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "^12.9 || 14 || 15"
   },
   "readmeFilename": "README.md",
   "devDependencies": {
