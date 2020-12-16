@@ -23,7 +23,7 @@ const ANSI = [
   /* 9 */ 's', // strikethrough
 ];
 
-const esc = s => '\x1b[' + s + '\x1b[0m';
+const esc = (s) => '\x1b[' + s + '\x1b[0m';
 
 // Create escape sequence from concolor style definition
 //   styles:string - comma separated styles
@@ -55,7 +55,7 @@ const stylize = (styles, val) => {
 //   styles:string - wrap tag into styles
 //   strings:array - array of string or string
 //   values:array - array of string
-const tag = styles => (strings, ...values) => {
+const tag = (styles) => (strings, ...values) => {
   if (typeof strings === 'string') {
     return stylize(styles, strings);
   }
@@ -71,7 +71,7 @@ const tag = styles => (strings, ...values) => {
 
 // Create theme tag
 //   tags:string - theme tags
-const theme = tags => {
+const theme = (tags) => {
   const styles = (strings, ...values) => {
     const result = [strings[0]];
     let i = 1;
