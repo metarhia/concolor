@@ -1,10 +1,11 @@
 # Concolor
 
-[![CI Status](https://github.com/metarhia/concolor/workflows/Testing%20CI/badge.svg)](https://github.com/metarhia/concolor/actions?query=workflow%3A%22Testing+CI%22+branch%3Amaster)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6f4f133090d64f178d099f86521ec117)](https://www.codacy.com/app/metarhia/concolor)
-[![NPM Version](https://badge.fury.io/js/concolor.svg)](https://badge.fury.io/js/concolor)
-[![NPM Downloads/Month](https://img.shields.io/npm/dm/concolor.svg)](https://www.npmjs.com/package/concolor)
-[![NPM Downloads](https://img.shields.io/npm/dt/concolor.svg)](https://www.npmjs.com/package/concolor)
+[![ci status](https://github.com/metarhia/concolor/workflows/Testing%20CI/badge.svg)](https://github.com/metarhia/concolor/actions?query=workflow%3A%22Testing+CI%22+branch%3Amaster)
+[![codacy](https://api.codacy.com/project/badge/Grade/6f4f133090d64f178d099f86521ec117)](https://www.codacy.com/app/metarhia/concolor)
+[![snyk](https://snyk.io/test/github/metarhia/impress/badge.svg)](https://snyk.io/test/github/metarhia/impress)
+[![npm version](https://badge.fury.io/js/concolor.svg)](https://badge.fury.io/js/concolor)
+[![npm downloads/month](https://img.shields.io/npm/dm/concolor.svg)](https://www.npmjs.com/package/concolor)
+[![npm downloads](https://img.shields.io/npm/dt/concolor.svg)](https://www.npmjs.com/package/concolor)
 
 Concolor is a simple library for Node.js for coloring templated strings using
 tags with annotations
