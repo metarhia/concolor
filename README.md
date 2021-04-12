@@ -29,14 +29,14 @@ console.log(concolor`text ${expression}(styles)`);
 Examples:
 
 ```javascript
-console.log(concolor`Hello ${'World'}(blue) blue`);
-console.log(concolor`Hello ${'World'}(/red) on red`);
-console.log(concolor`Hello ${'World'}(white/yellow,b) bold white on yellow`);
-console.log(concolor`Hello ${'World'}(b) bold`);
-console.log(concolor`Hello ${'World'}(b,/blue) bold on blue`);
-console.log(concolor`Hello ${'World'}(b,u,yellow) bold underline yellow`);
-console.log(concolor`Hello ${'World'}(blue,u) blue underline`);
-console.log(concolor`Hello ${'World'}(b,black/green) bold black on green`);
+console.log(concolor`Ave ${'World'}(blue) blue`);
+console.log(concolor`Ave ${'World'}(/red) on red`);
+console.log(concolor`Ave ${'World'}(white/yellow,b) bold white on yellow`);
+console.log(concolor`Ave ${'World'}(b) bold`);
+console.log(concolor`Ave ${'World'}(b,/blue) bold on blue`);
+console.log(concolor`Ave ${'World'}(b,u,yellow) bold underline yellow`);
+console.log(concolor`Ave ${'World'}(blue,u) blue underline`);
+console.log(concolor`Ave ${'World'}(b,black/green) bold black on green`);
 
 console.log(concolor`
   Client on ${'192.168.1.1'}(black/green)
