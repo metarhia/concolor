@@ -32,6 +32,7 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "main": "concolor.js",
+  "types": "types/concolor.d.ts",
   "files": [
     "types/"
   ],
