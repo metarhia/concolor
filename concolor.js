@@ -55,19 +55,21 @@ const stylize = (styles, val) => {
 //   styles:string - wrap tag into styles
 //   strings:array - array of string or string
 //   values:array - array of string
-const tag = (styles) => (strings, ...values) => {
-  if (typeof strings === 'string') {
-    return stylize(styles, strings);
-  }
+const tag =
+  (styles) =>
+  (strings, ...values) => {
+    if (typeof strings === 'string') {
+      return stylize(styles, strings);
+    }
 
-  const result = [strings[0]];
-  let i = 1;
-  for (const val of values) {
-    const str = strings[i++];
-    result.push(val, str);
-  }
-  return stylize(styles, result.join(''));
-};
+    const result = [strings[0]];
+    let i = 1;
+    for (const val of values) {
+      const str = strings[i++];
+      result.push(val, str);
+    }
+    return stylize(styles, result.join(''));
+  };
 
 // Create theme tag
 //   tags:string - theme tags
