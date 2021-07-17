@@ -22,4 +22,3 @@ interface Concolor {
 }
 
 export const concolor: TagFuction | Concolor;
-
