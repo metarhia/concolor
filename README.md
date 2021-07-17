@@ -113,6 +113,8 @@ const theme = concolor({
 console.log(theme.caption('Caption example'));
 ```
 
-## Contributors
+## License & Contributors
 
-Copyright (c) 2017-2020 [concolor contributors](https://github.com/metarhia/concolor/graphs/contributors)
+Copyright (c) 2017-2021 [Metarhia contributors](https://github.com/metarhia/concolor/graphs/contributors).
+Concolor is [MIT licensed](./LICENSE).\
+Concolor is a part of [Metarhia](https://github.com/metarhia) technology stack.

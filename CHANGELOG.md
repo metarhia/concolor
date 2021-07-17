@@ -2,7 +2,10 @@
 
 ## [Unreleased][unreleased]
 
+## [1.0.2][] - 2021-07-17
+
 - Move types to package root
+- Package maintenance and update dependencies
 
 ## [1.0.1][] - 2021-04-13
 
@@ -22,7 +25,8 @@
 - Style function (wrappers to add escape styles)
 - Themes (set of named styles)
 
-[unreleased]: https://github.com/metarhia/concolor/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/metarhia/concolor/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/metarhia/concolor/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/metarhia/concolor/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/metarhia/concolor/compare/v0.1.16...v1.0.0
 [0.1.16]: https://github.com/metarhia/concolor/releases/tag/v0.1.16
