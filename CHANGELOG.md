@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Move types to package root
+
 ## [1.0.1][] - 2021-04-13
 
 - Add .d.ts typings

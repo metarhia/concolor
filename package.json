@@ -32,13 +32,13 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "main": "concolor.js",
-  "types": "types/concolor.d.ts",
+  "types": "concolor.d.ts",
   "files": [
-    "types/"
+    "concolor.d.ts"
   ],
   "scripts": {
     "test": "npm run lint && npm run types && node ./test.js",
-    "types": "tsc -p types/tsconfig.json",
+    "types": "tsc -p tsconfig.json",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\"",
     "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\""
   },
