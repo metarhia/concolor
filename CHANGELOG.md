@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Remove codacy badge in README.md
+
 ## [1.0.3][] - 2022-07-07
 
 - Package maintenance
