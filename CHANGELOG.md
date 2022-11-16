@@ -2,7 +2,9 @@
 
 ## [Unreleased][unreleased]
 
+- Imprve code style
 - Remove codacy badge in README.md
+- Update dependencies
 
 ## [1.0.3][] - 2022-07-07
 
