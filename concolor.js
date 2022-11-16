@@ -23,32 +23,29 @@ const ANSI = [
   /* 9 */ 's', // strikethrough
 ];
 
-const esc = (s) => '\x1b[' + s + '\x1b[0m';
+const esc = (code, s) => `\x1b[${code}m${s}\x1b[0m`;
 
 // Create escape sequence from concolor style definition
 //   styles:string - comma separated styles
-//   val:string - value to stylize
-const stylize = (styles, val) => {
-  styles = styles.split(',');
-  for (const style of styles) {
+//   s:string - value to stylize
+const stylize = (styles, s) => {
+  const list = styles.split(',');
+  let result = s;
+  for (const style of list) {
     if (style.length === 1) {
       const code = ANSI.indexOf(style) + 1;
-      val = esc(code + 'm' + val);
+      result = esc(code, result);
     } else {
-      const color = style.split('/');
-      const index = COLORS.indexOf(color[0]);
-      if (index > -1) {
-        val = esc('3' + index + 'm' + val);
-      }
-      if (COLORS.length > 1) {
-        const index = COLORS.indexOf(color[1]);
-        if (index > -1) {
-          val = esc('4' + index + 'm' + val);
-        }
+      const [foreground, background] = style.split('/');
+      const index = COLORS.indexOf(foreground);
+      if (index > -1) result = esc('3' + index.toString(), result);
+      if (background) {
+        const index = COLORS.indexOf(background);
+        if (index > -1) result = esc('4' + index.toString(), result);
       }
     }
   }
-  return val;
+  return result;
 };
 
 // Create tag function
@@ -61,7 +58,6 @@ const tag =
     if (typeof strings === 'string') {
       return stylize(styles, strings);
     }
-
     const result = [strings[0]];
     let i = 1;
     for (const val of values) {
@@ -89,7 +85,6 @@ const theme = (tags) => {
     }
     return result.join('');
   };
-
   for (const name in tags) {
     styles[name] = tag(tags[name]);
   }
@@ -103,11 +98,9 @@ const concolor = (strings, ...values) => {
   if (typeof strings === 'string') {
     return tag(strings);
   }
-
   if (!Array.isArray(strings)) {
     return theme(strings);
   }
-
   const result = [strings[0]];
   let i = 1;
   for (const val of values) {
@@ -120,7 +113,6 @@ const concolor = (strings, ...values) => {
       result.push(value, rest);
     }
   }
-
   return result.join('');
 };
 
