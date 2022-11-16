@@ -4,7 +4,7 @@ const concolor = require('./concolor.js');
 
 console.log('Examples:\n');
 
-console.log(concolor`  Hello ${'World'}(i,black/green) black on green`);
+console.log(concolor`  Hello ${'World'}(i,black/green) italic black on green`);
 console.log(concolor`  Hello ${'World'}(blue) blue`);
 console.log(concolor`  Hello ${'World'}(/red) on red`);
 console.log(concolor`  Hello ${'World'}(white/yellow,b) bold white on yellow`);
