@@ -25,9 +25,6 @@ const ANSI = [
 
 const esc = (code, s) => `\x1b[${code}m${s}\x1b[0m`;
 
-// Create escape sequence from concolor style definition
-//   styles:string - comma separated styles
-//   s:string - value to stylize
 const stylize = (styles, s) => {
   const list = styles.split(',');
   let result = s;
@@ -48,10 +45,6 @@ const stylize = (styles, s) => {
   return result;
 };
 
-// Create tag function
-//   styles:string - wrap tag into styles
-//   strings:array - array of string or string
-//   values:array - array of string
 const tag =
   (styles) =>
   (strings, ...values) => {
@@ -67,8 +60,6 @@ const tag =
     return stylize(styles, result.join(''));
   };
 
-// Create theme tag
-//   tags:string - theme tags
 const theme = (tags) => {
   const styles = (strings, ...values) => {
     const result = [strings[0]];
@@ -91,9 +82,6 @@ const theme = (tags) => {
   return styles;
 };
 
-// Concolor main function
-//   strings:array - array of string or string
-//   values:array - array of string
 const concolor = (strings, ...values) => {
   if (typeof strings === 'string') {
     return tag(strings);
