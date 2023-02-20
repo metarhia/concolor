@@ -114,6 +114,6 @@ console.log(theme.caption('Caption example'));
 
 ## License & Contributors
 
-Copyright (c) 2017-2022 [Metarhia contributors](https://github.com/metarhia/concolor/graphs/contributors).
+Copyright (c) 2017-2023 [Metarhia contributors](https://github.com/metarhia/concolor/graphs/contributors).
 Concolor is [MIT licensed](./LICENSE).\
 Concolor is a part of [Metarhia](https://github.com/metarhia) technology stack.
