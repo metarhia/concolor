@@ -33,9 +33,7 @@
   },
   "main": "concolor.js",
   "types": "concolor.d.ts",
-  "files": [
-    "concolor.d.ts"
-  ],
+  "files": ["concolor.d.ts"],
   "scripts": {
     "test": "npm run lint && npm run types && node ./test.js",
     "types": "tsc -p tsconfig.json",
