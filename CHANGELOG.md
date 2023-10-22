@@ -2,6 +2,11 @@
 
 ## [Unreleased][unreleased]
 
+## [1.1.0][] - 2023-10-22
+
+- Drop node.js 16 and 19 support
+- Update dependencies, CI and package maintenance
+
 ## [1.0.6][] - 2023-04-29
 
 - Drop node.js 14 support, add node.js 20
@@ -45,7 +50,8 @@
 - Style function (wrappers to add escape styles)
 - Themes (set of named styles)
 
-[unreleased]: https://github.com/metarhia/concolor/compare/v1.0.6...HEAD
+[unreleased]: https://github.com/metarhia/concolor/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/metarhia/concolor/compare/v1.0.6...v1.1.0
 [1.0.6]: https://github.com/metarhia/concolor/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/metarhia/concolor/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/metarhia/concolor/compare/v1.0.3...v1.0.4
