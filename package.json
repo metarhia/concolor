@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/metarhia/concolor"
+    "url": "git+https://github.com/metarhia/concolor.git"
   },
   "bugs": {
     "url": "https://github.com/metarhia/concolor/issues",
@@ -33,7 +33,9 @@
   },
   "main": "concolor.js",
   "types": "concolor.d.ts",
-  "files": ["concolor.d.ts"],
+  "files": [
+    "concolor.d.ts"
+  ],
   "scripts": {
     "test": "npm run lint && npm run types && node ./test.js",
     "types": "tsc -p tsconfig.json",
