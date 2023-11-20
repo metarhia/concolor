@@ -47,13 +47,13 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "@types/node": "^20.7.0",
-    "eslint": "^8.34.0",
+    "@types/node": "^20.9.2",
+    "eslint": "^8.54.0",
     "eslint-config-metarhia": "^8.1.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.0.4"
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
   }
 }
