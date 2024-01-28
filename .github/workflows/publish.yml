@@ -1,0 +1,30 @@
+name: Publish Package to NPM
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v4
+      - id: setup-nodejs
+        name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - id: install-dependencies
+        name: Install dependencies
+        run: npm ci
+      - id: publish
+        name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

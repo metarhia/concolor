@@ -1,3 +1,6 @@
-node_modules
-*.log
-.DS_Store
+.github
+.editorconfig
+.eslintrc.json
+.gitattributes
+.prettierignore
+.prettierrc

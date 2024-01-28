@@ -1,9 +1,23 @@
 {
   "name": "concolor",
   "version": "1.1.0",
-  "author": "Vladyslav Dukhin <vladyslav.dukhin@gmail.com>",
   "description": "Console colors for strings templates in node.js",
   "license": "MIT",
+  "main": "concolor.js",
+  "types": "concolor.d.ts",
+  "author": "Vladyslav Dukhin <vladyslav.dukhin@gmail.com>",
+  "scripts": {
+    "test": "npm run lint && npm run types && node ./test.js",
+    "types": "tsc -p tsconfig.json",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\""
+  },
+  "engines": {
+    "node": "18 || 20 || 21"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
   "keywords": [
     "concolor",
     "metarhia",
@@ -31,21 +45,6 @@
     "type": "patreon",
     "url": "https://www.patreon.com/tshemsedinov"
   },
-  "main": "concolor.js",
-  "types": "concolor.d.ts",
-  "files": [
-    "concolor.d.ts"
-  ],
-  "scripts": {
-    "test": "npm run lint && npm run types && node ./test.js",
-    "types": "tsc -p tsconfig.json",
-    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\"",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\""
-  },
-  "engines": {
-    "node": "18 || 20 || 21"
-  },
-  "readmeFilename": "README.md",
   "devDependencies": {
     "@types/node": "^20.9.2",
     "eslint": "^8.54.0",
