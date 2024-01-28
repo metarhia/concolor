@@ -2,6 +2,10 @@ name: Testing CI
 
 on: pull_request
 
+concurrency:
+  group: "${{ github.workflow }} at ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -16,16 +20,18 @@ jobs:
           - windows-latest
           - macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node }}
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v4
+      - id: setup-nodejs
+        name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - run: npm ci
-      - run: npm test
+          cache: 'npm'
+      - id: install-dependencies
+        name: Install dependencies
+        run: npm ci
+      - id: test
+        name: Test
+        run: npm test
