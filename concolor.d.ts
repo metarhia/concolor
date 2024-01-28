@@ -1,24 +1,26 @@
-type Strings = string | Array<string>;
-type TagFuction = (strings: Strings, ...values: Array<any>) => string;
+type TagFunctionString = string | TemplateStringsArray | ReadonlyArray<string>;
+type TagFunction = (strings: TagFunctionString, ...values: ReadonlyArray<any>) => string;
 
-interface Concolor {
-  b: TagFuction;
-  i: TagFuction;
-  u: TagFuction;
-  em: TagFuction;
-  error: TagFuction;
-  info: TagFuction;
-  warn: TagFuction;
-  debug: TagFuction;
-  succes: TagFuction;
-  fail: TagFuction;
-  red: TagFuction;
-  green: TagFuction;
-  yellow: TagFuction;
-  blue: TagFuction;
-  magenta: TagFuction;
-  cyan: TagFuction;
-  white: TagFuction;
+declare function concolor(strings: string): TagFunction;
+declare function concolor(strings: Record<string, string>): TagFunction;
+declare function concolor(strings: string[], ...values: any[]): string;
+declare namespace concolor {
+  export const b: TagFunction;
+  export const i: TagFunction;
+  export const u: TagFunction;
+  export const em: TagFunction;
+  export const error: TagFunction;
+  export const info: TagFunction;
+  export const warn: TagFunction;
+  export const debug: TagFunction;
+  export const success: TagFunction;
+  export const fail: TagFunction;
+  export const red: TagFunction;
+  export const green: TagFunction;
+  export const yellow: TagFunction;
+  export const blue: TagFunction;
+  export const magenta: TagFunction;
+  export const cyan: TagFunction;
+  export const white: TagFunction;
 }
-
-export const concolor: TagFuction | Concolor;
+export = concolor;
