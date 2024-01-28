@@ -3,7 +3,7 @@ type TagFunction = (strings: TagFunctionString, ...values: ReadonlyArray<any>) =
 
 declare function concolor(strings: string): TagFunction;
 declare function concolor(strings: Record<string, string>): TagFunction;
-declare function concolor(strings: string[], ...values: any[]): string;
+declare function concolor(strings: TemplateStringsArray, ...values: ReadonlyArray<any>): string;
 declare namespace concolor {
   export const b: TagFunction;
   export const i: TagFunction;
