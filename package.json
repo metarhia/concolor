@@ -47,7 +47,7 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "@types/node": "^20.9.2",
+    "@types/node": "^22.2.0",
     "eslint": "^8.54.0",
     "eslint-config-metarhia": "^8.1.0",
     "eslint-config-prettier": "^9.0.0",
