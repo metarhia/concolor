@@ -47,12 +47,10 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "@types/node": "^22.2.0",
-    "eslint": "^9.9.0",
-    "eslint-config-metarhia": "^9.0.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.1.0",
-    "typescript": "^5.3.2"
+    "@types/node": "^22.5.1",
+    "eslint": "^9.9.1",
+    "eslint-config-metarhia": "^9.0.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   }
 }
