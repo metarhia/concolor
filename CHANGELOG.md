@@ -2,6 +2,11 @@
 
 ## [Unreleased][unreleased]
 
+## [1.1.1][] - 2024-09-03
+
+- Update eslint to 9.x and prettier with configs
+- Add node.js 22 to CI
+
 ## [1.1.0][] - 2023-10-22
 
 - Drop node.js 16 and 19 support
@@ -50,7 +55,8 @@
 - Style function (wrappers to add escape styles)
 - Themes (set of named styles)
 
-[unreleased]: https://github.com/metarhia/concolor/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/metarhia/concolor/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/metarhia/concolor/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/metarhia/concolor/compare/v1.0.6...v1.1.0
 [1.0.6]: https://github.com/metarhia/concolor/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/metarhia/concolor/compare/v1.0.4...v1.0.5
