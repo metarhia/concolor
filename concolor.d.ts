@@ -1,24 +1,31 @@
-type Strings = string | Array<string>;
-type TagFuction = (strings: Strings, ...values: Array<any>) => string;
+type TagFunction = (strings: TemplateStringsArray, ...values: unknown[]) => string;
 
 interface Concolor {
-  b: TagFuction;
-  i: TagFuction;
-  u: TagFuction;
-  em: TagFuction;
-  error: TagFuction;
-  info: TagFuction;
-  warn: TagFuction;
-  debug: TagFuction;
-  succes: TagFuction;
-  fail: TagFuction;
-  red: TagFuction;
-  green: TagFuction;
-  yellow: TagFuction;
-  blue: TagFuction;
-  magenta: TagFuction;
-  cyan: TagFuction;
-  white: TagFuction;
+  b: TagFunction;
+  i: TagFunction;
+  u: TagFunction;
+  em: TagFunction;
+  
+  error: TagFunction;
+  info: TagFunction;
+  warn: TagFunction;
+  debug: TagFunction;
+  success: TagFunction;
+  fail: TagFunction;
+  
+  black: TagFunction;
+  red: TagFunction;
+  green: TagFunction;
+  yellow: TagFunction;
+  blue: TagFunction;
+  magenta: TagFunction;
+  cyan: TagFunction;
+  white: TagFunction;
 }
 
-export const concolor: TagFuction | Concolor;
+export declare const concolor: Concolor & {
+  (strings: TemplateStringsArray, ...values: unknown[]): string;
+  (styles: string): TagFunction;
+  (theme: Record<string, string>): Record<string, TagFunction>;
+  (styles: string, text: string): string;
+};
