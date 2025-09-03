@@ -1,6 +1,6 @@
 'use strict';
 
-const concolor = require('./concolor.js');
+const concolor = require('../concolor.js');
 
 console.log('Examples:\n');
 
