@@ -2,6 +2,11 @@
 
 ## [Unreleased][unreleased]
 
+## [1.1.4][] - 2025-12-27
+
+- Add node.js 25 to CI
+- Update dependencies
+
 ## [1.1.3][] - 2025-09-04
 
 - Update dependencies
