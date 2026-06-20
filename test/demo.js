@@ -41,37 +41,38 @@ const warn = concolor('b,yellow');
 const err = concolor('b,yellow/red');
 const inf = concolor('i,white');
 
-console.log('  ' + warn`test1 ${'text2'} text3`);
-console.log('  ' + err`test4 ${'text5'} text6`);
-console.log('  ' + inf`test7 ${'text8'} text9`);
+console.log(`  ${warn`test1 ${'text2'} text3`}`);
+console.log(`  ${err`test4 ${'text5'} text6`}`);
+console.log(`  ${inf`test7 ${'text8'} text9`}`);
 
 console.log('\nUse tag as a funtion:\n');
 
-console.log('  ' + warn(`test1 ${'text2'} text3`));
-console.log('  ' + err(`test4 ${'text5'} text6`));
-console.log('  ' + inf(`test7 ${'text8'} text9`));
+console.log(`  ${warn(`test1 ${'text2'} text3`)}`);
+console.log(`  ${err(`test4 ${'text5'} text6`)}`);
+console.log(`  ${inf(`test7 ${'text8'} text9`)}`);
 
 console.log('\nShorthand:\n');
 
-console.log('  ' + concolor.b('concolor.b'));
-console.log('  ' + concolor.i('concolor.i'));
-console.log('  ' + concolor.u('concolor.u'));
+console.log(`  ${concolor.b('concolor.b')}`);
+console.log(`  ${concolor.i('concolor.i')}`);
+console.log(`  ${concolor.u('concolor.u')}`);
 
-console.log('  ' + concolor.em('concolor.em'));
+console.log(`  ${concolor.em('concolor.em')}`);
 
-console.log('  ' + concolor.error('concolor.error'));
-console.log('  ' + concolor.info('concolor.info'));
-console.log('  ' + concolor.warn('concolor.warn'));
-console.log('  ' + concolor.debug('concolor.debug'));
+console.log(`  ${concolor.error('concolor.error')}`);
+console.log(`  ${concolor.info('concolor.info')}`);
+console.log(`  ${concolor.warn('concolor.warn')}`);
+console.log(`  ${concolor.debug('concolor.debug')}`);
 
-console.log('  ' + concolor.success('concolor.success'));
-console.log('  ' + concolor.fail('concolor.fail'));
+console.log(`  ${concolor.success('concolor.success')}`);
+console.log(`  ${concolor.fail('concolor.fail')}`);
 
-console.log('  ' + concolor.red('concolor.red'));
-console.log('  ' + concolor.green('concolor.green'));
-console.log('  ' + concolor.yellow('concolor.yellow'));
-console.log('  ' + concolor.blue('concolor.blue'));
-console.log('  ' + concolor.white('concolor.white'));
+console.log(`  ${concolor.black('concolor.black')}`);
+console.log(`  ${concolor.red('concolor.red')}`);
+console.log(`  ${concolor.green('concolor.green')}`);
+console.log(`  ${concolor.yellow('concolor.yellow')}`);
+console.log(`  ${concolor.blue('concolor.blue')}`);
+console.log(`  ${concolor.white('concolor.white')}`);
 
 console.log('\nThemes:\n');
 
@@ -91,6 +92,6 @@ console.log(theme`  ${{ caption }}
 
 console.log('\nThemes as functions:\n');
 
-console.log('  ' + theme.caption('Caption example'));
+console.log(`  ${theme.caption('Caption example')}`);
 
 console.log('\nPassed\n');

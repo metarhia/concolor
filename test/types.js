@@ -27,6 +27,7 @@ test('TypeScript type validation', async (t) => {
       'debug',
       'success',
       'fail',
+      'black',
       'red',
       'green',
       'yellow',
@@ -59,8 +60,8 @@ test('TypeScript type validation', async (t) => {
     assert(typeof result3 === 'function');
     assert(typeof result3.test === 'function');
 
-    const result4 = concolor('red', 'test');
-    assert(typeof result4 === 'function');
+    const tagFn = concolor('red');
+    assert(typeof tagFn === 'function');
   });
 
   await t.test('theme object type validation', () => {
