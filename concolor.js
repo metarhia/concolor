@@ -1,15 +1,17 @@
 'use strict';
 
 const COLORS = [
-  /* 1 */ 'black',
-  /* 2 */ 'red',
-  /* 3 */ 'green',
-  /* 4 */ 'yellow',
-  /* 5 */ 'blue',
-  /* 6 */ 'magenta',
-  /* 7 */ 'cyan',
-  /* 8 */ 'white',
+  /* 0 */ 'black',
+  /* 1 */ 'red',
+  /* 2 */ 'green',
+  /* 3 */ 'yellow',
+  /* 4 */ 'blue',
+  /* 5 */ 'magenta',
+  /* 6 */ 'cyan',
+  /* 7 */ 'white',
 ];
+
+const COLOR_INDEX = new Map(COLORS.map((c, i) => [c, i]));
 
 const ANSI = [
   /* 1 */ 'b', // bold (increased intensity)
@@ -23,26 +25,28 @@ const ANSI = [
   /* 9 */ 's', // strikethrough
 ];
 
-const esc = (code, s) => `\x1b[${code}m${s}\x1b[0m`;
+const ANSI_INDEX = new Map(ANSI.map((a, i) => [a, i + 1]));
+
+const esc = (codes, s) => `\x1b[${codes}m${s}\x1b[0m`;
 
 const stylize = (styles, s) => {
   const list = styles.split(',');
-  let result = s;
+  const codes = [];
   for (const style of list) {
     if (style.length === 1) {
-      const code = ANSI.indexOf(style) + 1;
-      result = esc(code, result);
+      const code = ANSI_INDEX.get(style);
+      if (code !== undefined) codes.push(code);
     } else {
       const [foreground, background] = style.split('/');
-      const index = COLORS.indexOf(foreground);
-      if (index > -1) result = esc('3' + index.toString(), result);
+      const fgIndex = COLOR_INDEX.get(foreground);
+      if (fgIndex !== undefined) codes.push(`3${fgIndex}`);
       if (background) {
-        const index = COLORS.indexOf(background);
-        if (index > -1) result = esc('4' + index.toString(), result);
+        const bgIndex = COLOR_INDEX.get(background);
+        if (bgIndex !== undefined) codes.push(`4${bgIndex}`);
       }
     }
   }
-  return result;
+  return codes.length > 0 ? esc(codes.join(';'), s) : s;
 };
 
 const tag =
@@ -95,10 +99,12 @@ const concolor = (strings, ...values) => {
     const str = strings[i++];
     if (str.startsWith('(')) {
       const pos = str.indexOf(')');
-      const styles = str.substring(1, pos);
-      const value = stylize(styles, val);
+      const styleList = str.substring(1, pos);
+      const value = stylize(styleList, val);
       const rest = str.substring(pos + 1);
       result.push(value, rest);
+    } else {
+      result.push(val, str);
     }
   }
   return result.join('');
@@ -118,6 +124,7 @@ concolor.debug = concolor('b,blue');
 concolor.success = concolor.info;
 concolor.fail = concolor.error;
 
+concolor.black = concolor('black');
 concolor.red = concolor('red');
 concolor.green = concolor('green');
 concolor.yellow = concolor('yellow');
