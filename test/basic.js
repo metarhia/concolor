@@ -4,15 +4,21 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const concolor = require('../concolor.js');
 
+const hasSgrCode = (str, code) => {
+  // eslint-disable-next-line no-control-regex -- ANSI escape detection
+  const match = str.match(/\x1b\[([\d;]+)m/);
+  return match ? match[1].split(';').includes(String(code)) : false;
+};
+
 test('basic styling examples', async (t) => {
   await t.test('italic black on green', () => {
-    const result =
-      concolor`  Hello ${'World'}(i,black/green) ` + 'italic black on green';
+    const s = concolor`  Hello ${'World'}(i,black/green) `;
+    const result = `${s}italic black on green`;
     assert(typeof result === 'string');
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[3m'));
+    assert(hasSgrCode(result, '3'));
   });
 
   await t.test('blue color', () => {
@@ -21,7 +27,7 @@ test('basic styling examples', async (t) => {
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[34m'));
+    assert(hasSgrCode(result, '34'));
   });
 
   await t.test('on red background', () => {
@@ -30,19 +36,19 @@ test('basic styling examples', async (t) => {
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[41m'));
+    assert(hasSgrCode(result, '41'));
   });
 
   await t.test('bold white on yellow', () => {
-    const result =
-      concolor`  Hello ${'World'}(white/yellow,b) ` + 'bold white on yellow';
+    const s = concolor`  Hello ${'World'}(white/yellow,b) `;
+    const result = `${s}bold white on yellow`;
     assert(typeof result === 'string');
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[1m'));
-    assert(result.includes('\x1b[37m'));
-    assert(result.includes('\x1b[43m'));
+    assert(hasSgrCode(result, '1'));
+    assert(hasSgrCode(result, '37'));
+    assert(hasSgrCode(result, '43'));
   });
 
   await t.test('bold italic', () => {
@@ -51,8 +57,8 @@ test('basic styling examples', async (t) => {
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[1m'));
-    assert(result.includes('\x1b[3m'));
+    assert(hasSgrCode(result, '1'));
+    assert(hasSgrCode(result, '3'));
   });
 
   await t.test('bold on blue background', () => {
@@ -61,20 +67,20 @@ test('basic styling examples', async (t) => {
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[1m'));
-    assert(result.includes('\x1b[44m'));
+    assert(hasSgrCode(result, '1'));
+    assert(hasSgrCode(result, '44'));
   });
 
   await t.test('bold underline yellow', () => {
-    const result =
-      concolor`  Hello ${'World'}(b,u,yellow) ` + 'bold underline yellow';
+    const s = concolor`  Hello ${'World'}(b,u,yellow) `;
+    const result = `${s}bold underline yellow`;
     assert(typeof result === 'string');
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[1m'));
-    assert(result.includes('\x1b[4m'));
-    assert(result.includes('\x1b[33m'));
+    assert(hasSgrCode(result, '1'));
+    assert(hasSgrCode(result, '4'));
+    assert(hasSgrCode(result, '33'));
   });
 
   await t.test('blue underline', () => {
@@ -83,20 +89,20 @@ test('basic styling examples', async (t) => {
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[34m'));
-    assert(result.includes('\x1b[4m'));
+    assert(hasSgrCode(result, '34'));
+    assert(hasSgrCode(result, '4'));
   });
 
   await t.test('bold black on green', () => {
-    const result =
-      concolor`  Hello ${'World'}(b,black/green) ` + 'bold black on green';
+    const s = concolor`  Hello ${'World'}(b,black/green) `;
+    const result = `${s}bold black on green`;
     assert(typeof result === 'string');
     assert(result.includes('Hello'));
     assert(result.includes('World'));
     assert(result.includes('\x1b[0m'));
-    assert(result.includes('\x1b[1m'));
-    assert(result.includes('\x1b[30m'));
-    assert(result.includes('\x1b[42m'));
+    assert(hasSgrCode(result, '1'));
+    assert(hasSgrCode(result, '30'));
+    assert(hasSgrCode(result, '42'));
   });
 });
 
@@ -139,7 +145,13 @@ test('complex examples', async (t) => {
     assert(result.includes('connected to'));
     assert(result.includes('SERVER'));
     assert(result.includes('and variable with no style:'));
+    assert(result.includes('abc'), 'unstyled interpolation should be included');
     assert(result.includes('\x1b[0m'));
+  });
+
+  await t.test('unstyled interpolations are preserved', () => {
+    const result = concolor`plain ${'value'} end`;
+    assert.strictEqual(result, 'plain value end');
   });
 });
 
@@ -214,6 +226,7 @@ test('shorthand methods', async (t) => {
 
   await t.test('color shorthand methods', () => {
     const results = [
+      concolor.black('concolor.black'),
       concolor.red('concolor.red'),
       concolor.green('concolor.green'),
       concolor.yellow('concolor.yellow'),
