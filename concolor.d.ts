@@ -5,14 +5,13 @@ interface Concolor {
   i: TagFunction;
   u: TagFunction;
   em: TagFunction;
-  
+
   error: TagFunction;
   info: TagFunction;
   warn: TagFunction;
   debug: TagFunction;
   success: TagFunction;
   fail: TagFunction;
-  
   black: TagFunction;
   red: TagFunction;
   green: TagFunction;
@@ -27,5 +26,4 @@ export declare const concolor: Concolor & {
   (strings: TemplateStringsArray, ...values: unknown[]): string;
   (styles: string): TagFunction;
   (theme: Record<string, string>): Record<string, TagFunction>;
-  (styles: string, text: string): string;
 };
