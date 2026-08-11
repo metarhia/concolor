@@ -2,6 +2,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
+
 const concolor = require('../concolor.js');
 
 test('TypeScript type validation', async (t) => {

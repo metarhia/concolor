@@ -1,4 +1,7 @@
-type TagFunction = (strings: TemplateStringsArray, ...values: unknown[]) => string;
+type TagFunction = {
+  (text: string): string;
+  (strings: TemplateStringsArray, ...values: unknown[]): string;
+};
 
 interface Concolor {
   b: TagFunction;
