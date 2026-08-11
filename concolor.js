@@ -1,5 +1,7 @@
 'use strict';
 
+const { split, between } = require('metautil');
+
 const COLORS = [
   /* 0 */ 'black',
   /* 1 */ 'red',
@@ -36,17 +38,24 @@ const stylize = (styles, s) => {
     if (style.length === 1) {
       const code = ANSI_INDEX.get(style);
       if (code !== undefined) codes.push(code);
-    } else {
-      const [foreground, background] = style.split('/');
-      const fgIndex = COLOR_INDEX.get(foreground);
-      if (fgIndex !== undefined) codes.push(`3${fgIndex}`);
-      if (background) {
-        const bgIndex = COLOR_INDEX.get(background);
-        if (bgIndex !== undefined) codes.push(`4${bgIndex}`);
-      }
+      continue;
     }
+    const [foreground, background] = split(style, '/');
+    const fgIndex = COLOR_INDEX.get(foreground);
+    if (fgIndex !== undefined) codes.push(`3${fgIndex}`);
+    if (!background) continue;
+    const bgIndex = COLOR_INDEX.get(background);
+    if (bgIndex !== undefined) codes.push(`4${bgIndex}`);
   }
   return codes.length > 0 ? esc(codes.join(';'), s) : s;
+};
+
+const render = (strings, values, push) => {
+  const result = [strings[0]];
+  for (let i = 0; i < values.length; i++) {
+    push(result, values[i], strings[i + 1]);
+  }
+  return result.join('');
 };
 
 const tag =
@@ -55,13 +64,10 @@ const tag =
     if (typeof strings === 'string') {
       return stylize(styles, strings);
     }
-    const result = [strings[0]];
-    let i = 1;
-    for (const val of values) {
-      const str = strings[i++];
+    const text = render(strings, values, (result, val, str) => {
       result.push(val, str);
-    }
-    return stylize(styles, result.join(''));
+    });
+    return stylize(styles, text);
   };
 
 const theme = (tags) => {
@@ -93,21 +99,15 @@ const concolor = (strings, ...values) => {
   if (!Array.isArray(strings)) {
     return theme(strings);
   }
-  const result = [strings[0]];
-  let i = 1;
-  for (const val of values) {
-    const str = strings[i++];
-    if (str.startsWith('(')) {
-      const pos = str.indexOf(')');
-      const styleList = str.substring(1, pos);
-      const value = stylize(styleList, val);
-      const rest = str.substring(pos + 1);
-      result.push(value, rest);
-    } else {
+  return render(strings, values, (result, val, str) => {
+    if (!str.startsWith('(') || !str.includes(')')) {
       result.push(val, str);
+      return;
     }
-  }
-  return result.join('');
+    const styleList = between(str, '(', ')');
+    const [, rest] = split(str, ')');
+    result.push(stylize(styleList, val), rest);
+  });
 };
 
 concolor.b = concolor('b');
