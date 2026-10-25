@@ -1,6 +1,6 @@
 'use strict';
 
-const { split, between } = require('metautil');
+const { split } = require('metautil');
 
 const COLORS = [
   /* 0 */ 'black',
@@ -13,7 +13,8 @@ const COLORS = [
   /* 7 */ 'white',
 ];
 
-const COLOR_INDEX = new Map(COLORS.map((c, i) => [c, i]));
+const FG_CODES = new Map(COLORS.map((c, i) => [c, 30 + i]));
+const BG_CODES = new Map(COLORS.map((c, i) => [c, 40 + i]));
 
 const ANSI = [
   /* 1 */ 'b', // bold (increased intensity)
@@ -27,30 +28,36 @@ const ANSI = [
   /* 9 */ 's', // strikethrough
 ];
 
-const ANSI_INDEX = new Map(ANSI.map((a, i) => [a, i + 1]));
+const ANSI_CODES = new Map(ANSI.map((a, i) => [a, i + 1]));
 
 const esc = (codes, s) => `\x1b[${codes}m${s}\x1b[0m`;
 
-const stylize = (styles, s) => {
-  const list = styles.split(',');
-  const codes = [];
-  for (const style of list) {
+const parsed = new Map();
+
+const parse = (styles) => {
+  let codes = parsed.get(styles);
+  if (codes !== undefined) return codes;
+  const list = [];
+  for (const style of styles.split(',')) {
     if (style.length === 1) {
-      const code = ANSI_INDEX.get(style);
-      if (code !== undefined) codes.push(code);
-      continue;
+      list.push(ANSI_CODES.get(style));
+    } else {
+      const [foreground, background] = split(style, '/');
+      list.push(FG_CODES.get(foreground), BG_CODES.get(background));
     }
-    const [foreground, background] = split(style, '/');
-    const fgIndex = COLOR_INDEX.get(foreground);
-    if (fgIndex !== undefined) codes.push(`3${fgIndex}`);
-    if (!background) continue;
-    const bgIndex = COLOR_INDEX.get(background);
-    if (bgIndex !== undefined) codes.push(`4${bgIndex}`);
   }
-  return codes.length > 0 ? esc(codes.join(';'), s) : s;
+  codes = list.filter((code) => code !== undefined).join(';');
+  parsed.set(styles, codes);
+  return codes;
 };
 
-const render = (strings, values, push) => {
+const stylize = (codes, s) => (codes ? esc(codes, s) : s);
+
+const interleave = (result, val, str) => {
+  result.push(val, str);
+};
+
+const render = (strings, values, push = interleave) => {
   const result = [strings[0]];
   for (let i = 0; i < values.length; i++) {
     push(result, values[i], strings[i + 1]);
@@ -61,31 +68,17 @@ const render = (strings, values, push) => {
 const tag =
   (styles) =>
   (strings, ...values) => {
-    if (typeof strings === 'string') {
-      return stylize(styles, strings);
-    }
-    const text = render(strings, values, (result, val, str) => {
-      result.push(val, str);
-    });
-    return stylize(styles, text);
+    const text =
+      typeof strings === 'string' ? strings : render(strings, values);
+    return stylize(parse(styles), text);
   };
 
 const theme = (tags) => {
-  const styles = (strings, ...values) => {
-    const result = [strings[0]];
-    let i = 1;
-    for (const val of values) {
-      const str = strings[i++];
-      for (const name in val) {
-        const style = styles[name];
-        const value = val[name];
-        const res = style(value);
-        result.push(res);
-      }
+  const styles = (strings, ...values) =>
+    render(strings, values, (result, val, str) => {
+      for (const name in val) result.push(styles[name](val[name]));
       result.push(str);
-    }
-    return result.join('');
-  };
+    });
   for (const name in tags) {
     styles[name] = tag(tags[name]);
   }
@@ -100,13 +93,13 @@ const concolor = (strings, ...values) => {
     return theme(strings);
   }
   return render(strings, values, (result, val, str) => {
-    if (!str.startsWith('(') || !str.includes(')')) {
-      result.push(val, str);
+    const end = str.startsWith('(') ? str.indexOf(')') : -1;
+    if (end === -1) {
+      interleave(result, val, str);
       return;
     }
-    const styleList = between(str, '(', ')');
-    const [, rest] = split(str, ')');
-    result.push(stylize(styleList, val), rest);
+    const codes = parse(str.slice(1, end));
+    result.push(stylize(codes, val), str.slice(end + 1));
   });
 };
 
@@ -124,13 +117,6 @@ concolor.debug = concolor('b,blue');
 concolor.success = concolor.info;
 concolor.fail = concolor.error;
 
-concolor.black = concolor('black');
-concolor.red = concolor('red');
-concolor.green = concolor('green');
-concolor.yellow = concolor('yellow');
-concolor.blue = concolor('blue');
-concolor.magenta = concolor('magenta');
-concolor.cyan = concolor('cyan');
-concolor.white = concolor('white');
+for (const color of COLORS) concolor[color] = concolor(color);
 
 module.exports = concolor;
