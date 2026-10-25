@@ -5,30 +5,32 @@ const assert = require('node:assert');
 
 const concolor = require('../concolor.js');
 
+const CODES = {
+  b: '1',
+  i: '3',
+  u: '4',
+  em: '1',
+  error: '1;31',
+  info: '1;32',
+  warn: '1;33',
+  debug: '1;34',
+  success: '1;32',
+  fail: '1;31',
+  black: '30',
+  red: '31',
+  green: '32',
+  yellow: '33',
+  blue: '34',
+  magenta: '35',
+  cyan: '36',
+  white: '37',
+};
+
+const METHODS = Object.keys(CODES);
+
 test('API consistency', async (t) => {
   await t.test('all predefined methods exist and are functions', () => {
-    const methods = [
-      'b',
-      'i',
-      'u',
-      'em',
-      'error',
-      'info',
-      'warn',
-      'debug',
-      'success',
-      'fail',
-      'black',
-      'red',
-      'green',
-      'yellow',
-      'blue',
-      'magenta',
-      'cyan',
-      'white',
-    ];
-
-    methods.forEach((method) => {
+    METHODS.forEach((method) => {
       assert(
         typeof concolor[method] === 'function',
         `${method} should be a function`,
@@ -36,29 +38,16 @@ test('API consistency', async (t) => {
     });
   });
 
-  await t.test('all methods return strings', () => {
-    const methods = [
-      'b',
-      'i',
-      'u',
-      'em',
-      'error',
-      'info',
-      'warn',
-      'debug',
-      'success',
-      'fail',
-      'black',
-      'red',
-      'green',
-      'yellow',
-      'blue',
-      'magenta',
-      'cyan',
-      'white',
-    ];
+  await t.test('all methods apply their SGR codes', () => {
+    for (const [method, codes] of Object.entries(CODES)) {
+      const expected = `\x1b[${codes}mtest\x1b[0m`;
+      assert.strictEqual(concolor[method]('test'), expected, method);
+      assert.strictEqual(concolor[method]`test`, expected, method);
+    }
+  });
 
-    methods.forEach((method) => {
+  await t.test('all methods return strings', () => {
+    METHODS.forEach((method) => {
       const result = concolor[method]('test');
       assert(typeof result === 'string', `${method} should return a string`);
       assert(
@@ -66,53 +55,6 @@ test('API consistency', async (t) => {
         `${method} should include the input text`,
       );
       assert(result.includes('\x1b[0m'), `${method} should include reset code`);
-    });
-  });
-
-  await t.test('style methods apply correct styles', () => {
-    const boldResult = concolor.b('test');
-    const italicResult = concolor.i('test');
-    const underlineResult = concolor.u('test');
-    const emphasisResult = concolor.em('test');
-
-    assert(boldResult.includes('\x1b[0m'));
-    assert(italicResult.includes('\x1b[0m'));
-    assert(underlineResult.includes('\x1b[0m'));
-    assert(emphasisResult.includes('\x1b[0m'));
-  });
-
-  await t.test('semantic methods apply correct styles', () => {
-    const errorResult = concolor.error('test');
-    const infoResult = concolor.info('test');
-    const warnResult = concolor.warn('test');
-    const debugResult = concolor.debug('test');
-    const successResult = concolor.success('test');
-    const failResult = concolor.fail('test');
-
-    assert(errorResult.includes('\x1b[0m'));
-    assert(infoResult.includes('\x1b[0m'));
-    assert(warnResult.includes('\x1b[0m'));
-    assert(debugResult.includes('\x1b[0m'));
-    assert(successResult.includes('\x1b[0m'));
-    assert(failResult.includes('\x1b[0m'));
-  });
-
-  await t.test('color methods apply correct colors', () => {
-    const colorMethods = [
-      'red',
-      'green',
-      'yellow',
-      'blue',
-      'magenta',
-      'cyan',
-      'white',
-    ];
-
-    colorMethods.forEach((color) => {
-      const result = concolor[color]('test');
-      assert(typeof result === 'string');
-      assert(result.includes('test'));
-      assert(result.includes('\x1b[0m'));
     });
   });
 });
