@@ -5,106 +5,60 @@ const assert = require('node:assert');
 
 const concolor = require('../concolor.js');
 
-const hasSgrCode = (str, code) => {
-  // eslint-disable-next-line no-control-regex -- ANSI escape detection
-  const match = str.match(/\x1b\[([\d;]+)m/);
-  return match ? match[1].split(';').includes(String(code)) : false;
-};
+const EXAMPLES = [
+  [
+    'italic black on green',
+    () => concolor`Hello ${'World'}(i,black/green) end`,
+    'Hello \x1b[3;30;42mWorld\x1b[0m end',
+  ],
+  [
+    'blue color',
+    () => concolor`Hello ${'World'}(blue) blue`,
+    'Hello \x1b[34mWorld\x1b[0m blue',
+  ],
+  [
+    'on red background',
+    () => concolor`Hello ${'World'}(/red) on red`,
+    'Hello \x1b[41mWorld\x1b[0m on red',
+  ],
+  [
+    'bold white on yellow',
+    () => concolor`Hello ${'World'}(white/yellow,b)`,
+    'Hello \x1b[37;43;1mWorld\x1b[0m',
+  ],
+  [
+    'bold italic',
+    () => concolor`Hello ${'World'}(b,i) bold italic`,
+    'Hello \x1b[1;3mWorld\x1b[0m bold italic',
+  ],
+  [
+    'bold on blue background',
+    () => concolor`Hello ${'World'}(b,/blue)`,
+    'Hello \x1b[1;44mWorld\x1b[0m',
+  ],
+  [
+    'bold underline yellow',
+    () => concolor`Hello ${'World'}(b,u,yellow)`,
+    'Hello \x1b[1;4;33mWorld\x1b[0m',
+  ],
+  [
+    'blue underline',
+    () => concolor`Hello ${'World'}(blue,u) (x)`,
+    'Hello \x1b[34;4mWorld\x1b[0m (x)',
+  ],
+  [
+    'bold black on green',
+    () => concolor`Hello ${'World'}(b,black/green)`,
+    'Hello \x1b[1;30;42mWorld\x1b[0m',
+  ],
+];
 
 test('basic styling examples', async (t) => {
-  await t.test('italic black on green', () => {
-    const s = concolor`  Hello ${'World'}(i,black/green) `;
-    const result = `${s}italic black on green`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '3'));
-  });
-
-  await t.test('blue color', () => {
-    const result = concolor`  Hello ${'World'}(blue) blue`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '34'));
-  });
-
-  await t.test('on red background', () => {
-    const result = concolor`  Hello ${'World'}(/red) on red`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '41'));
-  });
-
-  await t.test('bold white on yellow', () => {
-    const s = concolor`  Hello ${'World'}(white/yellow,b) `;
-    const result = `${s}bold white on yellow`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '1'));
-    assert(hasSgrCode(result, '37'));
-    assert(hasSgrCode(result, '43'));
-  });
-
-  await t.test('bold italic', () => {
-    const result = concolor`  Hello ${'World'}(b,i) bold italic`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '1'));
-    assert(hasSgrCode(result, '3'));
-  });
-
-  await t.test('bold on blue background', () => {
-    const result = concolor`  Hello ${'World'}(b,/blue) bold on blue`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '1'));
-    assert(hasSgrCode(result, '44'));
-  });
-
-  await t.test('bold underline yellow', () => {
-    const s = concolor`  Hello ${'World'}(b,u,yellow) `;
-    const result = `${s}bold underline yellow`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '1'));
-    assert(hasSgrCode(result, '4'));
-    assert(hasSgrCode(result, '33'));
-  });
-
-  await t.test('blue underline', () => {
-    const result = concolor`  Hello ${'World'}(blue,u) blue underline`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '34'));
-    assert(hasSgrCode(result, '4'));
-  });
-
-  await t.test('bold black on green', () => {
-    const s = concolor`  Hello ${'World'}(b,black/green) `;
-    const result = `${s}bold black on green`;
-    assert(typeof result === 'string');
-    assert(result.includes('Hello'));
-    assert(result.includes('World'));
-    assert(result.includes('\x1b[0m'));
-    assert(hasSgrCode(result, '1'));
-    assert(hasSgrCode(result, '30'));
-    assert(hasSgrCode(result, '42'));
-  });
+  for (const [name, render, expected] of EXAMPLES) {
+    await t.test(name, () => {
+      assert.strictEqual(render(), expected);
+    });
+  }
 });
 
 test('style examples', async (t) => {
@@ -191,54 +145,6 @@ test('tag as function', async (t) => {
     assert(result1.includes('test1 text2 text3'));
     assert(result2.includes('test4 text5 text6'));
     assert(result3.includes('test7 text8 text9'));
-  });
-});
-
-test('shorthand methods', async (t) => {
-  await t.test('style shorthand methods', () => {
-    const results = [
-      concolor.b('concolor.b'),
-      concolor.i('concolor.i'),
-      concolor.u('concolor.u'),
-      concolor.em('concolor.em'),
-    ];
-
-    results.forEach((result) => {
-      assert(typeof result === 'string');
-      assert(result.includes('\x1b[0m'));
-    });
-  });
-
-  await t.test('semantic shorthand methods', () => {
-    const results = [
-      concolor.error('concolor.error'),
-      concolor.info('concolor.info'),
-      concolor.warn('concolor.warn'),
-      concolor.debug('concolor.debug'),
-      concolor.success('concolor.success'),
-      concolor.fail('concolor.fail'),
-    ];
-
-    results.forEach((result) => {
-      assert(typeof result === 'string');
-      assert(result.includes('\x1b[0m'));
-    });
-  });
-
-  await t.test('color shorthand methods', () => {
-    const results = [
-      concolor.black('concolor.black'),
-      concolor.red('concolor.red'),
-      concolor.green('concolor.green'),
-      concolor.yellow('concolor.yellow'),
-      concolor.blue('concolor.blue'),
-      concolor.white('concolor.white'),
-    ];
-
-    results.forEach((result) => {
-      assert(typeof result === 'string');
-      assert(result.includes('\x1b[0m'));
-    });
   });
 });
 

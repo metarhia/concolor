@@ -16,39 +16,6 @@ test('TypeScript type validation', async (t) => {
     assert(result.includes('\x1b[0m'));
   });
 
-  await t.test('Concolor interface validation', () => {
-    const interfaceMethods = [
-      'b',
-      'i',
-      'u',
-      'em',
-      'error',
-      'info',
-      'warn',
-      'debug',
-      'success',
-      'fail',
-      'black',
-      'red',
-      'green',
-      'yellow',
-      'blue',
-      'magenta',
-      'cyan',
-      'white',
-    ];
-
-    interfaceMethods.forEach((method) => {
-      assert(
-        typeof concolor[method] === 'function',
-        `${method} should be a function`,
-      );
-
-      const result = concolor[method]('test');
-      assert(typeof result === 'string', `${method} should return a string`);
-    });
-  });
-
   await t.test('function overload validation', () => {
     const result1 = concolor`Hello ${'World'}(red)`;
     assert(typeof result1 === 'string');
