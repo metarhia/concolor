@@ -73,6 +73,21 @@ test('theme object structure', async (t) => {
     assert(typeof theme.link === 'function');
   });
 
+  await t.test('theme accepts name and length keys', () => {
+    const theme = concolor({ name: 'b', length: 'red' });
+    assert.strictEqual(theme.name('x'), '\x1b[1mx\x1b[0m');
+    assert.strictEqual(theme.length('x'), '\x1b[31mx\x1b[0m');
+    const result = theme`${{ name: 'A' }} ${{ length: 'B' }}`;
+    assert.strictEqual(result, '\x1b[1mA\x1b[0m \x1b[31mB\x1b[0m');
+  });
+
+  await t.test('theme interpolates non-object values as-is', () => {
+    const theme = concolor({ title: 'b' });
+    assert.strictEqual(theme`Total: ${5}`, 'Total: 5');
+    assert.strictEqual(theme`Hi ${'ab'}!`, 'Hi ab!');
+    assert.strictEqual(theme`[${null}]`, '[]');
+  });
+
   await t.test('theme methods work correctly', () => {
     const theme = concolor({
       title: 'b,blue',
