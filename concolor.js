@@ -76,11 +76,21 @@ const tag =
 const theme = (tags) => {
   const styles = (strings, ...values) =>
     render(strings, values, (result, val, str) => {
+      if (typeof val !== 'object' || val === null) {
+        interleave(result, val, str);
+        return;
+      }
       for (const name in val) result.push(styles[name](val[name]));
       result.push(str);
     });
   for (const name in tags) {
-    styles[name] = tag(tags[name]);
+    // defineProperty: assignment throws for Function's read-only name/length
+    Object.defineProperty(styles, name, {
+      value: tag(tags[name]),
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    });
   }
   return styles;
 };
