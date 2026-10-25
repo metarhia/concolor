@@ -3,30 +3,30 @@ type TagFunction = {
   (strings: TemplateStringsArray, ...values: unknown[]): string;
 };
 
-interface Concolor {
-  b: TagFunction;
-  i: TagFunction;
-  u: TagFunction;
-  em: TagFunction;
+type Color =
+  'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
 
-  error: TagFunction;
-  info: TagFunction;
-  warn: TagFunction;
-  debug: TagFunction;
-  success: TagFunction;
-  fail: TagFunction;
-  black: TagFunction;
-  red: TagFunction;
-  green: TagFunction;
-  yellow: TagFunction;
-  blue: TagFunction;
-  magenta: TagFunction;
-  cyan: TagFunction;
-  white: TagFunction;
-}
+type Shorthand =
+  | 'b'
+  | 'i'
+  | 'u'
+  | 'em'
+  | 'error'
+  | 'info'
+  | 'warn'
+  | 'debug'
+  | 'success'
+  | 'fail'
+  | Color;
 
-export declare const concolor: Concolor & {
+type Theme = Record<string, TagFunction> & {
+  (strings: TemplateStringsArray, ...values: unknown[]): string;
+};
+
+declare const concolor: Record<Shorthand, TagFunction> & {
   (strings: TemplateStringsArray, ...values: unknown[]): string;
   (styles: string): TagFunction;
-  (theme: Record<string, string>): Record<string, TagFunction>;
+  (theme: Record<string, string>): Theme;
 };
+
+export = concolor;
