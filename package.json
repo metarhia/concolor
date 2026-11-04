@@ -48,10 +48,10 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "@types/node": "^26.6.6",
-    "eslint": "^9.39.5",
-    "eslint-config-metarhia": "^9.1.9",
+    "eslint": "^10.14.0",
+    "eslint-config-metarhia": "^10.0.1",
     "prettier": "^3.8.4",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "metautil": "^5.5.2"
